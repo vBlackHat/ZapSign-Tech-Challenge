@@ -1,0 +1,1363 @@
+{
+	"info": {
+		"_postman_id": "669e99d2-8308-46e9-ba0c-2e0809d8adab",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29276714"
+	},
+	"item": [
+		{
+			"name": "Docs",
+			"item": [
+				{
+					"name": "Create doc from upload PDF",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Has original file\",function() {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.original_file).to.be.a('string');\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"doc_token\", jsonData.token);\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"signer_token\", jsonData.signers[0].token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"My PDF Contract\",\n\t\"url_pdf\":\"https://zapsign.s3.amazonaws.com/2022/1/pdf/63d19807-cbfa-4b51-8571-215ad0f4eb98/ca42e7be-c932-482c-b70b-92ad7aea04be.pdf\",\n\t\"external_id\": null,\n\t\"signers\":[\n\t\t{ \n\t\t\t\"name\":\"My First API Signer PDF\"\n\t\t},\n\t\t{ \n\t\t\t\"name\":\"My Second API Signer PDF\",\n\t\t\t\"email\":\"andre@zapsign.com.br\",\n\t\t\t\"auth_mode\":\"assinaturaTela\",\n\t\t\t\"send_automatic_email\": true,\n\t\t\t\"send_automatic_whatsapp\": false,\n            \"order_group\": null,\n            \"custom_message\": \"\",\n            \"phone_country\":\"55\",\n\t\t\t\"phone_number\":\"11958039555\",\n            \"lock_email\":false,\n            \"blank_email\":false,\n            \"hide_email\":false,\n\t\t\t\"lock_phone\":false,\n            \"blank_phone\":false,\n\t\t\t\"hide_phone\":false,\n            \"lock_name\":false,\n            \"require_cpf\":false,\n            \"cpf\": \"\",\n            \"require_selfie_photo\": true,\n            \"require_document_photo\": true,\n            \"selfie_validation_type\": \"liveness-document-match\",\n            \"selfie_photo_url\":\"\",\n            \"document_photo_url\":\"\",\n            \"document_verse_photo_url\":\"\",\n            \"qualification\": \"\",\n            \"external_id\": \"\",\n            \"redirect_link\": \"\"\n\t\t}\n\t],\n    \"lang\": \"pt-br\",\n    \"disable_signer_emails\": false,\n    \"brand_logo\": \"\",\n\t\"brand_primary_color\":\"\",\n    \"brand_name\": \"\",\n    \"folder_path\":\"/\",\n    \"created_by\":\"\",\n    \"date_limit_to_sign\": null,\n    \"signature_order_active\": false,\n    \"observers\":[\"test@observer.com\"],\n    \"reminder_every_n_days\": 0,\n    \"allow_refuse_signature\": false,\n    \"disable_signers_get_original_file\": false\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create doc from upload DOCX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"doc_token\", jsonData.token);\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"signer_token\", jsonData.signers[0].token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n\t\"name\":\"My DOCX Contract\",\n\t\"url_docx\":\"https://zapsign.s3.amazonaws.com/dev/2024/6/docs/ece397ae-d8dc-4374-98fc-b6439632a420/0ab1c9ab-ac65-4c52-98da-b04f3219ee63.docx\",\n\t\"external_id\": null,\n\t\"signers\":[\n\t\t{ \n\t\t\t\"name\":\"My First API Signer DOCX\"\n\t\t},\n\t\t{ \n\t\t\t\"name\":\"My Second API Signer DOCX\",\n\t\t\t\"email\":\"test@test.com\",\n\t\t\t\"auth_mode\":\"assinaturaTela\",\n\t\t\t\"send_automatic_email\": false,\n\t\t\t\"send_automatic_whatsapp\": true,\n            \"order_group\": null,\n            \"custom_message\": \"\",\n            \"phone_country\":\"YOUR_COUNTRY_PREFIX\",\n\t\t\t\"phone_number\":\"YOUR_PHONE_NUMBER\",\n            \"lock_email\":false,\n            \"blank_email\":false,\n            \"hide_email\":false,\n\t\t\t\"lock_phone\":false,\n            \"blank_phone\":false,\n\t\t\t\"hide_phone\":false,\n            \"lock_name\":false,\n            \"require_cpf\":false,\n            \"cpf\": \"\",\n            \"require_selfie_photo\": false,\n            \"require_document_photo\": false,\n            \"selfie_validation_type\": \"none\",\n            \"qualification\": \"\",\n            \"external_id\": \"\",\n            \"redirect_link\": \"\"\n\t\t}\n\t],\n    \"lang\": \"pt-br\",\n    \"disable_signer_emails\": false,\n    \"brand_logo\": \"\",\n\t\"brand_primary_color\":\"\",\n    \"brand_name\": \"\",\n    \"folder_path\":\"/\",\n    \"created_by\":\"\",\n    \"date_limit_to_sign\": null,\n    \"signature_order_active\": false,\n    \"observers\":[\"test@observer.com\"],\n    \"reminder_every_n_days\": 0,\n    \"allow_refuse_signature\": false,\n    \"disable_signers_get_original_file\": false\n} "
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create doc from Upload Async",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"doc_token\", jsonData.token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"My Async Contract\",\n\t\"url_pdf\":\"https://zapsign.s3.amazonaws.com/2022/1/pdf/63d19807-cbfa-4b51-8571-215ad0f4eb98/ca42e7be-c932-482c-b70b-92ad7aea04be.pdf\",\n\t\"external_id\": null,\n\t\"signers\":[\n\t\t{ \n\t\t\t\"name\":\"My First API Signer Async\"\n\t\t},\n\t\t{ \n\t\t\t\"name\":\"My Second API Signer Async\",\n\t\t\t\"email\":\"test@test.com\",\n\t\t\t\"auth_mode\":\"assinaturaTela\",\n\t\t\t\"send_automatic_email\": false,\n\t\t\t\"send_automatic_whatsapp\": true,\n            \"order_group\": null,\n            \"custom_message\": \"\",\n            \"phone_country\":\"YOUR_COUNTRY_PREFIX\",\n\t\t\t\"phone_number\":\"YOUR_PHONE_NUMBER\",\n            \"lock_email\":false,\n            \"blank_email\":false,\n            \"hide_email\":false,\n\t\t\t\"lock_phone\":false,\n            \"blank_phone\":false,\n\t\t\t\"hide_phone\":false,\n            \"lock_name\":false,\n            \"require_cpf\":false,\n            \"cpf\": \"\",\n            \"require_selfie_photo\": false,\n            \"require_document_photo\": false,\n            \"selfie_validation_type\": \"none\",\n            \"qualification\": \"\",\n            \"external_id\": \"\",\n            \"redirect_link\": \"\"\n\t\t}\n\t],\n    \"lang\": \"pt-br\",\n    \"disable_signer_emails\": false,\n    \"signed_file_only_finished\": false,\n    \"brand_logo\": \"\",\n\t\"brand_primary_color\":\"\",\n    \"brand_name\": \"\",\n    \"folder_path\":\"/\",\n    \"created_by\":\"\",\n    \"date_limit_to_sign\": null,\n    \"signature_order_active\": false,\n    \"observers\":[\"test@observer.com\"],\n    \"reminder_every_n_days\": null,\n    \"allow_refuse_signature\": false,\n    \"disable_signers_get_original_file\": false\n} "
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/async/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"async",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create doc from Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"doc_token\", jsonData.token);\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"signer_token\", jsonData.signers[0].token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"template_id\":\"{{template_token}}\",\n\t\"signer_name\":\"My Signer\",\n\t\"send_automatic_email\": false,\n\t\"send_automatic_whatsapp\": false,\n\t\"lang\": \"pt-br\",\n\t\"external_id\": null,\n\t\"data\":[\n        {\n            \"de\":\"{{NOME COMPLETO}}\",\n            \"para\":\"Full Name\"\n        },\n        {\n            \"de\":\"{{NÚMERO DO CPF}}\",\n            \"para\":\"Social Security Number\"\n        },\n        {\n            \"de\":\"{{ENDEREÇO COMPLETO}}\",\n            \"para\":\"Full address\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/models/create-doc/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"models",
+								"create-doc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add extra doc from Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"template_id\":\"{{template_token}}\",\n    \"data\":[\n        {\n            \"de\":\"{{NOME COMPLETO}}\",\n            \"para\":\"Full Name\"\n        },\n        {\n            \"de\":\"{{NÚMERO DO CPF}}\",\n            \"para\":\"Social Security Number\"\n        },\n        {\n            \"de\":\"{{ENDEREÇO COMPLETO}}\",\n            \"para\":\"Full address\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/models/{{doc_token}}/upload-extra-doc/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"models",
+								"{{doc_token}}",
+								"upload-extra-doc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create doc from Template Async",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"template_id\":\"{{template_token}}\",\n\t\"signer_name\":\"My Signer\",\n\t\"send_automatic_email\": false,\n\t\"send_automatic_whatsapp\": false,\n\t\"lang\": \"pt-br\",\n\t\"external_id\": null,\n\t\"data\":[\n        {\n            \"de\":\"{{NOME COMPLETO}}\",\n            \"para\":\"Full Name\"\n        },\n        {\n            \"de\":\"{{NÚMERO DO CPF}}\",\n            \"para\":\"Social Security Number\"\n        },\n        {\n            \"de\":\"{{ENDEREÇO COMPLETO}}\",\n            \"para\":\"Full address\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/models/create-doc/async/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"models",
+								"create-doc",
+								"async",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add extra doc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Extra doc\",\n\t\"url_pdf\":\"https://zapsign.s3.amazonaws.com/2022/1/pdf/63d19807-cbfa-4b51-8571-215ad0f4eb98/ca42e7be-c932-482c-b70b-92ad7aea04be.pdf\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/{{doc_token}}/upload-extra-doc/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"{{doc_token}}",
+								"upload-extra-doc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail doc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/{{doc_token}}/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"{{doc_token}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place signatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rubricas\":[\n\t\t{\n\t\t\t\"page\": 0,\n\t\t\t\"relative_position_bottom\": 52.50, \n\t\t\t\"relative_position_left\": 75.71, \n\t\t\t\"relative_size_x\": 19.55, \n\t\t\t\"relative_size_y\": 9.42, \n\t\t\t\"type\":\"signature\",\n\t\t\t\"signer_token\": \"{{signer_token}}\"\n\t\t},\n\t\t{\n\t\t\t\"page\": 1,\n\t\t\t\"relative_position_bottom\": 23.50, \n\t\t\t\"relative_position_left\": 30.71, \n\t\t\t\"relative_size_x\": 19.55, \n\t\t\t\"relative_size_y\": 9.42, \n\t\t\t\"type\":\"visto\",\n\t\t\t\"signer_token\": \"{{signer_token}}\"\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/{{doc_token}}/place-signatures/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"{{doc_token}}",
+								"place-signatures",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete doc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/{{doc_token}}/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"{{doc_token}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Signers",
+			"item": [
+				{
+					"name": "Detail signer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/signers/{{signer_token}}/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signers",
+								"{{signer_token}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update signer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"New Signer Name\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/signers/{{signer_token}}/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signers",
+								"{{signer_token}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add signer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"signer_to_remove_token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"New Signer\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/docs/{{doc_token}}/add-signer/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"docs",
+								"{{doc_token}}",
+								"add-signer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign in batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_token\": \"{{user_api_token}}\",\n    \"signer_tokens\":[\n        \"{{signer_token}}\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/sign/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sign",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete signer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/signer/{{signer_to_remove_token}}/remove/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signer",
+								"{{signer_to_remove_token}}",
+								"remove",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Templates",
+			"item": [
+				{
+					"name": "List templates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/templates/?page=1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"templates",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/templates/{{template_token}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"templates",
+								"{{template_token}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Webhooks",
+			"item": [
+				{
+					"name": "Create webhook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Has ID\",function() {\r",
+									"\t\tvar jsonData = JSON.parse(responseBody);\r",
+									"    pm.expect(jsonData.id).to.be.a('number');\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"webhook_id\", jsonData.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://your.api.com/webhook-zapsign\",\r\n    \"type\": \"doc_signed\",\r\n    \"headers\": [\r\n        {\r\n            \"name\": \"Authorization\",\r\n            \"value\": \"Bearer YOUR_AUTHENTICATION_TOKEN\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/user/company/webhook/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"company",
+								"webhook",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create webhook header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Has ID\",function() {\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    pm.expect(jsonData.pop().headers.pop().id).to.be.a('number');\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"webhook_header_id\", jsonData.pop().headers.pop().id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{webhook_id}},\r\n    \"headers\": [\r\n        {\r\n            \"name\": \"Authorization\",\r\n            \"value\": \"Bearer YOUR_AUTHENTICATION_TOKEN\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/user/company/webhook/header/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"company",
+								"webhook",
+								"header",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete webhook header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{webhook_header_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/user/company/webhook/header/delete/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"company",
+								"webhook",
+								"header",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete webhook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{webhook_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/user/company/webhook/delete/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"company",
+								"webhook",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Time Stamp",
+			"item": [
+				{
+					"name": "Add Time Stamp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n    // \"base64\": \"...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/timestamp/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"timestamp",
+								""
+							]
+						},
+						"description": "Seal attesting to the exact date and time when a document was created and/or received digital signature, creating evidence of its temporal existence while simultaneously ensuring legal validity."
+					},
+					"response": [
+						{
+							"name": "Add Time Stamp",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\"\r\n    // \"base64\": \"...\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/api/v1/timestamp/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"timestamp",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"https://docs.api.zapsign.com.br/dev/2024/1/pdf/ec546bec-a419-4ce4-87a4-c22157e63a80/a7afcc24-6570-44c9-ada7-43d6aa2f525e.pdf?Expires=1704830807&Signature=g7Itl5tmjDUeC6xv73TxGDhyCGZ7h0LkBXzdOoJ4bEYqmgbqGIWxxjV1qE6QDtcUChE1NbWnZ2dU2Xysm7dh35mOJfu-aJOqXEcaEkwsYnF5r~J-knLcSWG6YIJy4~CdZiblEoRdzNsp1azjiD1U6LJHahxdHUnwqxKaiV37hpDkhQ8ianqWMksA2AJihkO5N7alPNS95CfLFIW0ieGFZ8nOdVGxL5QxBdS4zJFyK0GWY3W7ZMPNXIP8-e0V7gS-0svUovsUMR8otzGUbD9VlwtvsCUvaR-UHqnNRRFIhItsEtZqwoLDK4ugSRgtvgujFs~XJudCwdOh-ZwzUVerdg__&Key-Pair-Id=K187GT6PYLMBXP\"\n}"
+						}
+					]
+				}
+			],
+			"description": "# Params\n\n| Key | Description |\n| --- | --- |\n| url | PDF or DOCX url |\n| base64 | file base64 |"
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/companies/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/companies/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"companies",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "api_token",
+			"value": "YOUR_API_TOKEN_HERE"
+		},
+		{
+			"key": "api_url",
+			"value": "https://api.zapsign.com.br"
+		},
+		{
+			"key": "doc_token",
+			"value": "YOUR_DOC_TOKEN"
+		},
+		{
+			"key": "signer_token",
+			"value": "YOUR_SIGNER_TOKEN"
+		}
+	]
+}
